@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8" />
+  <title>{% block title %} {{title}} {% endblock %}</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+  <body>
+    <div class="container-fluid px-0">
+      <header>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 col-lg-4">
+              <div class="site-logo">
+                <a href="{% url 'home' %}">
+                <img
+                  src="{% static 'images/logo.png' %}"
+                  alt="desining the blogs"
+                />
+                </a>
+              </div>
+            </div>
+            <div class="col-md-9 col-lg-8">
+              <div class="search-nav">
+                <form class="form">
+                  <input
+                    class="form-control me-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                  <button class="btn btn-outline-success" type="submit">
+                    Search
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% comment %} navigation will be here {% endcomment %}
+        <nav class="navbar navbar-light">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'blogs' %}">Blogs</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+              </li>
+            </ul>
+            {% if user.is_authenticated %}
+            <div class="text-right">
+              <p>Welcome: <span>{{request.user | title}}</span>
+              {% if user.is_authenticated %}
+              | <a href="{% url 'logout' %}">Logout</a>
+              {% endif%}
+              </p>
+            </div>
+            {%endif%}
+          </div>
+        </nav>
+        {% comment %} end of navigation {% endcomment %}
+      </header>
+
+      <div class="main">{% block content %}{% endblock content %}</div>
+      <footer>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 col-lg-12">
+              <p class="text-center">
+                &copy; {{ current_year }} Django Blogs. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+      <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    </div>
+  </body>
+</html>

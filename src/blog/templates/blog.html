@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block content %}
+<div class="container blog-container">
+    <div class="row">
+        <ul class="list-group">
+            <li class="list-group-item"><a href="{% url 'create' %}">Add Article</a></li>
+        </ul>
+    </div>
+    <div class="row">
+        {% for blog in blog_lists %}
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ blog.title}}</h5>
+              <p class="card-text">{{blog.content}}</p>
+              <a href="#" class="btn btn-primary">Read More...</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+</div>
+{% endblock content %}
