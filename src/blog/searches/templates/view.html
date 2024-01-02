@@ -1,0 +1,57 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-8 mx-auto">
+      {% if query %}
+      <p class="lead"><strong>You searched for:</strong> {{query}}</p>
+      {% else %}
+      <form class="form-inline my-2 my-lg-0 text-center" action="/search/">
+        <input
+          class="form-control mr-sm-2"
+          name="q"
+          type="search"
+          placeholder="Search here..."
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          Search
+        </button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+  
+  {% if search_lists %} 
+  <div class="row">
+    {% for blog in search_lists %}
+    <div
+      class="col-sm-6 {% if not blog.publish_date %} bg-warning text-dark {% endif %}"
+    >
+      <div class="card">
+        {% if blog.post_image %}
+        <img
+          class="card-img-top"
+          src="{{ blog.post_image.url }}"
+          alt="cover image for {{ blog.title }}"
+        />
+        {% endif %}
+        <div class="card-body">
+          <h2 class="card-title">{{ blog.title }}</h2>
+          <p>
+            Written by: <span>{{ blog.user }}</span> | created on {{ blog.publish_date }}
+          </p>
+          <p class="card-text">
+            {{blog.content | linebreaks | truncatewords:30 }}
+          </p>
+          <a href="{{ blog.get_absolute_url }}" class="btn btn-primary">Read More...</a>
+          {% if not blog.publish_date %}
+          <small class="muted">Draft</small>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}

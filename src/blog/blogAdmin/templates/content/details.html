@@ -1,6 +1,23 @@
 {% extends "base.html" %} {% block content %}
 <div class="container">
-  <h1>{{blog.title}}</h1>
-  <p>{{blog.content}}</p>
+  <div class="row">
+    {% if blog.post_image %}
+    <img class="card-img-top" src="{{ blog.post_image.url }}" alt="cover image for {{ blog.title }}">
+    {% endif %}
+    <h1>{{blog.title}}</h1>
+    <p>Written by: <span>{{ blog.user }}</span></p>
+    <p>{{blog.content}}</p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <a class="btn btn-primary" href="{{ blog.get_edit_url }}"
+        >Edit me</a>
+    </div>
+    <div class="col-md-2">
+      <a class="btn btn-danger" href="{{ blog.get_delete_url }}"
+        >Delete me</a>
+    </div>
+  </div>
 </div>
 {% endblock content %}

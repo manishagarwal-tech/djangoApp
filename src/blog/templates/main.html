@@ -3,5 +3,9 @@
 {% block content %}
 <div class="container">
     <h1>Welcome to the home page</h1>
+    {{content}}
 </div>
 {% endblock content %}
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

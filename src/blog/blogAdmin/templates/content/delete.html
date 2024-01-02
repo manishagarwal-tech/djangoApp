@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <p>Are you sure want to delete this?</p>
+      <p>{{data.title}}</p>
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" value="{{ data.id}}" name="delete" />
+        <input type="submit" value="Delete me" class="btn btn-danger" />
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

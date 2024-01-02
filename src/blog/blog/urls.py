@@ -18,10 +18,10 @@ from django.urls import path, include
 # import all views to setup url path
 from .views import *
 from django.contrib.auth.views import LogoutView
-
+from django.conf import settings
 # import views from blog-admin app
 from blogAdmin.views import post_list_view 
-
+from searches.views import search_view
 urlpatterns = [
     # url for admin area
     path('wp-admin/', admin.site.urls),
@@ -32,6 +32,13 @@ urlpatterns = [
     path('about/', about_us, name="about"),
     path('contact/', contact, name="contact"),
     path('blog/', post_list_view, name="blogs"),
+    path('search/', search_view, name="search"),
     path('logout/', LogoutView.as_view(), name="logout"),
     
 ]
+
+if settings.DEBUG:
+    #test mode-> view the media files
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
